@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>세포 키우기 — Cell Grower</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 게임 캔버스: 페트리접시 + 세포/영양소 + VFX 레이어 -->
+  <canvas id="game"></canvas>
+
+  <!-- ───────── HUD 오버레이 (DOM) ───────── -->
+  <div id="ui" class="ui-layer">
+
+    <!-- 좌상단 상태 HUD -->
+    <div id="hud" class="hud panel">
+      <div class="hud-title">현미경 · 페트리접시</div>
+      <div class="stat stat-bm">
+        <span class="stat-label">바이오매스</span>
+        <span class="stat-value"><span id="bm">0</span><span class="unit">BM</span></span>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-label">흡수효율</span>
+          <span class="stat-value"><span id="eff">1.0</span>×</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">자동생산</span>
+          <span class="stat-value"><span id="auto">0.0</span><span class="unit">/s</span></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">세포 수</span>
+          <span class="stat-value"><span id="cells">1</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 상단 진화 진행바 -->
+    <div id="evo" class="evo panel">
+      <div class="evo-head">
+        <span class="evo-stage">진화: <strong id="stageName">원핵세포</strong></span>
+        <span class="evo-next" id="evoNextLabel">다음: 진핵세포</span>
+      </div>
+      <div class="evo-bar">
+        <div class="evo-fill" id="evoFill"></div>
+        <div class="evo-bar-text" id="evoBarText">0 / 200</div>
+      </div>
+    </div>
+
+    <!-- 우측 업그레이드 패널 -->
+    <div id="shop" class="shop panel">
+      <div class="shop-title">기관 · 진화</div>
+      <div id="shopList" class="shop-list"><!-- JS가 채움 --></div>
+      <div class="shop-foot">
+        <button id="saveBtn" class="mini-btn" type="button">저장</button>
+        <button id="loadBtn" class="mini-btn" type="button">불러오기</button>
+        <button id="boardBtn" class="mini-btn" type="button">순위</button>
+      </div>
+      <div id="toast" class="toast"></div>
+    </div>
+
+    <!-- 안내 -->
+    <div id="hint" class="hint">마우스를 따라 세포가 움직입니다 · 영양소에 닿으면 흡수합니다</div>
+
+    <!-- 순위판 모달 -->
+    <div id="board" class="board-modal hidden">
+      <div class="board-card panel">
+        <div class="board-title">바이오매스 순위</div>
+        <ol id="boardList" class="board-list"></ol>
+        <div class="board-actions">
+          <input id="boardName" class="board-name" maxlength="24" placeholder="이름(점수 등록)" />
+          <button id="submitScore" class="mini-btn" type="button">내 점수 등록</button>
+          <button id="closeBoard" class="mini-btn" type="button">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 결합 모듈: 비주얼 아트(CellArt) → VFX(Effects) → 게임(app) 순서로 로드.
+       각 모듈이 없어도 app.js가 내장 기본값으로 동작(경계 독립성). -->
+  <script src="cellart.js"></script>
+  <script src="effects.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

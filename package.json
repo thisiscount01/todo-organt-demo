@@ -1,0 +1,9 @@
+{
+  "name": "cell-grower",
+  "version": "1.0.0",
+  "description": "세포 키우기 게임 — 페트리접시에서 영양소를 흡수해 바이오매스를 키우고 진화하는 싱글플레이 캔버스 게임",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
